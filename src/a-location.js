@@ -67,9 +67,9 @@ AFRAME.registerComponent('a-location', {
     // This would be cleaner - would avoid the lookat which is clumsy
     //obj.rotation.set(0,0,0);
     //var q = new THREE.Quaternion();
-    //q.setFromAxisAngle( new THREE.Vector3(0,1,0), THREE.Math.degToRad(-data.lon) );
+    //q.setFromAxisAngle( new THREE.Vector3(0,1,0), THREE.MathUtils.degToRad(-data.lon) );
     // obj.quaternion.premultiply(q);
-    //q.setFromAxisAngle( new THREE.Vector3(1,0,0), THREE.Math.degToRad(data.lat) );
+    //q.setFromAxisAngle( new THREE.Vector3(1,0,0), THREE.MathUtils.degToRad(data.lat) );
     // obj.quaternion.premultiply(q);
   },
 });

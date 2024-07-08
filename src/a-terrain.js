@@ -194,10 +194,10 @@ AFRAME.registerComponent('a-terrain', {
         // rotate planet so that the salient interest area is pointing north - ie on a vector of 0,1,0
         this.el.object3D.rotation.set(0,0,0);
         var q = new THREE.Quaternion();
-        q.setFromAxisAngle( new THREE.Vector3(0,1,0), THREE.Math.degToRad(-data.longitude) );
+        q.setFromAxisAngle( new THREE.Vector3(0,1,0), THREE.MathUtils.degToRad(-data.longitude) );
         this.el.object3D.quaternion.premultiply(q);
-        q.setFromAxisAngle( new THREE.Vector3(1,0,0), THREE.Math.degToRad(-(90-data.latitude) ) );
-        //q.setFromAxisAngle( new THREE.Vector3(1,0,0), THREE.Math.degToRad(data.lat) ); // <- if you wanted lat,lon just facing you if you were at 0,0,1
+        q.setFromAxisAngle( new THREE.Vector3(1,0,0), THREE.MathUtils.degToRad(-(90-data.latitude) ) );
+        //q.setFromAxisAngle( new THREE.Vector3(1,0,0), THREE.MathUtils.degToRad(data.lat) ); // <- if you wanted lat,lon just facing you if you were at 0,0,1
         this.el.object3D.quaternion.premultiply(q);
       }
 

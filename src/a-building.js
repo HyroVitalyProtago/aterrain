@@ -61,11 +61,11 @@ AFRAME.registerComponent('a-building', {
         // (I suppose there's an ordered euler transform helper that could do this instead TODO)
         // first de-rotate by longitude - bringing the object to the GMT
         let q = new THREE.Quaternion();
-        q.setFromAxisAngle( new THREE.Vector3(0,1,0), THREE.Math.degToRad(-data.lon) - Math.PI/2 );
+        q.setFromAxisAngle( new THREE.Vector3(0,1,0), THREE.MathUtils.degToRad(-data.lon) - Math.PI/2 );
         this.el.object3D.quaternion.premultiply(q);
 
         // then de-rotate by latitude
-        q.setFromAxisAngle( new THREE.Vector3(1,0,0), THREE.Math.degToRad(data.lat) );
+        q.setFromAxisAngle( new THREE.Vector3(1,0,0), THREE.MathUtils.degToRad(data.lat) );
         this.el.object3D.quaternion.premultiply(q);
       }
 
