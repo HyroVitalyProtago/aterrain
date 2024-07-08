@@ -305,32 +305,32 @@ class TileServer  {
     }
 
     // build geometry
-    let geometry = new THREE.Geometry();
-    // build vertices
-    geometry.vertices = vertices;
+    let geometry = new THREE.BufferGeometry();
+
+		geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(vertices), 3));
+
     // build faces
+    const indices = [];
     for (let i=0; i<tile._indices.length-1; i=i+3) {
-      geometry.faces.push(new THREE.Face3(tile._indices[i], tile._indices[i+1], tile._indices[i+2]));
+      indices.push(tile._indices[i])
+			indices.push(tile._indices[i+1])
+			indices.push(tile._indices[i+2])
     }
+    geometry.setIndex(indices);
+
     // face vertices to linear distribution uv map
-    let faces = geometry.faces;
-    geometry.faceVertexUvs[0] = [];
+    const uvs = []
     for (let i = 0; i < faces.length ; i++) {
-      let vxa = tile._uValues[faces[i].a]/32767;
-      let vya = tile._vValues[faces[i].a]/32767;
-      let vxb = tile._uValues[faces[i].b]/32767;
-      let vyb = tile._vValues[faces[i].b]/32767;
-      let vxc = tile._uValues[faces[i].c]/32767;
-      let vyc = tile._vValues[faces[i].c]/32767;
-      geometry.faceVertexUvs[0].push([ new THREE.Vector2(vxa,vya), new THREE.Vector2(vxb,vyb), new THREE.Vector2(vxc,vyc) ]);
+      uvs.push(tile._uValues[i]/N);
+			uvs.push(tile._vValues[i]/N);
     }
-    // return geometry
-    geometry.uvsNeedUpdate = true;
-    geometry.computeVertexNormals();
-    geometry.computeFaceNormals();
-    geometry.computeBoundingBox();
-    geometry.computeBoundingSphere();
-    return geometry;
+    geometry.setAttribute('uv', new THREE.BufferAttribute(new Float32Array(uvs), 2));
+
+		geometry.computeVertexNormals();
+		geometry.computeBoundingBox();
+		geometry.computeBoundingSphere();
+
+		return geometry;
   }
 
   isReady() {
